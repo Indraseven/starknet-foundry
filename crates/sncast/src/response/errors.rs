@@ -76,11 +76,11 @@ pub enum SNCastProviderError {
 impl From<ProviderError> for SNCastProviderError {
     fn from(value: ProviderError) -> Self {
         match value {
-            ProviderError::StarknetError(err) => SNCastProviderError::StarknetError(err.into()),
+            ProviderError::StarknetError(err) => SNCastProv
+iderError::StarknetError(err.into()),
             ProviderError::RateLimited => SNCastProviderError::RateLimited,
             ProviderError::ArrayLengthMismatch => {
                 SNCastProviderError::UnknownError(anyhow!("Array length mismatch"))
-            }
             ProviderError::Other(err) => SNCastProviderError::UnknownError(anyhow!("{err}")),
         }
     }
