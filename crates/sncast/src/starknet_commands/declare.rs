@@ -74,17 +74,28 @@ pub async fn declare(
     let casm_contract_definition: CompiledClass =
         serde_json::from_str(&contract_artifacts.casm).context("Failed to parse casm artifact")?;
 
-    declare_with_artifacts(
-        contract_definition,
-        casm_contract_definition,
-        fee_args.clone(),
-        nonce,
-        account,
-        wait_config,
-        skip_on_already_declared,
-        ui,
-    )
-    .await
+let result = declare_with_artifacts(
+    contract_definition,
+    casm_contract_definition,
+    fee_args.clone(),
+    nonce,
+    account,
+    wait_config,
+    skip_on_already_declared,
+    ui,
+)
+.await;
+
+match result {
+    Ok(res) => Ok(res),
+    Err(StarknetCommandError::ProviderError(crate::response::errors::SNCastProviderError::StarknetError(
+        crate::response::errors::SNCastStarknetError::ValidationFailure(data, _),
+    ))) => Err(StarknetCommandError::ProviderError(
+        crate::response::errors::SNCastProviderError::StarknetError(
+            crate::response::errors::SNCastStarknetError::ValidationFailure(data, contract_name),
+        ),
+    )),
+    Err(e) => Err(e),
 }
 
 #[allow(clippy::too_many_arguments)]
