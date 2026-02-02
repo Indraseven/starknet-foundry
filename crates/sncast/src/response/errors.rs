@@ -81,7 +81,9 @@ iderError::StarknetError(err.into()),
             ProviderError::RateLimited => SNCastProviderError::RateLimited,
             ProviderError::ArrayLengthMismatch => {
                 SNCastProviderError::UnknownError(anyhow!("Array length mismatch"))
-            ProviderError::Other(err) => SNCastProviderError::UnknownError(anyhow!("{err}")),
+	}          
+
+ProviderError::Other(err) => SNCastProviderError::UnknownError(anyhow!("{err}")),
         }
     }
 }
