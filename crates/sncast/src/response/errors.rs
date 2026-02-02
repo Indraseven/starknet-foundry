@@ -84,7 +84,7 @@ impl From<ProviderError> for SNCastProviderError {
             ProviderError::Other(err) => SNCastProviderError::UnknownError(anyhow!("{err}")),
         }
     }
-}
+}	
 
 #[derive(Debug, Error, CairoSerialize)]
 pub enum SNCastStarknetError {
@@ -169,9 +169,6 @@ impl From<StarknetError> for SNCastStarknetError {
 	    StarknetError::ContractClassSizeIsTooLarge => {
             	SNCastStarknetError::ContractClassSizeIsTooLarge
 	    }
-            StarknetError::ContractClassSizeIsTooLarge => {
-                SNCastStarknetError::ContractClassSizeIsTooLarge
-            }
             StarknetError::NonAccount => SNCastStarknetError::NonAccount,
             StarknetError::DuplicateTx => SNCastStarknetError::DuplicateTx,
             StarknetError::CompiledClassHashMismatch => {
