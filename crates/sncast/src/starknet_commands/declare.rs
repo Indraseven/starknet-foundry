@@ -96,8 +96,8 @@ match result {
         ),
     )),
     Err(e) => Err(e),
+  }
 }
-
 #[allow(clippy::too_many_arguments)]
 pub async fn declare_with_artifacts(
     sierra_class: SierraClass,

@@ -172,6 +172,7 @@ impl From<StarknetError> for SNCastStarknetError {
             StarknetError::NonAccount => SNCastStarknetError::NonAccount,
             StarknetError::DuplicateTx => SNCastStarknetError::DuplicateTx,
             StarknetError::CompiledClassHashMismatch => {
+                        StarknetError::CompiledClassHashMismatch => {
                 SNCastStarknetError::CompiledClassHashMismatch
             }
             StarknetError::UnsupportedTxVersion => SNCastStarknetError::UnsupportedTxVersion,
@@ -186,3 +187,4 @@ impl From<StarknetError> for SNCastStarknetError {
         }
     }
 }
+
