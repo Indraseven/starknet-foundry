@@ -84,7 +84,7 @@ impl From<ProviderError> for SNCastProviderError {
             ProviderError::Other(err) => SNCastProviderError::UnknownError(anyhow!("{err}")),
         }
     }
-}	
+}
 
 #[derive(Debug, Error, CairoSerialize)]
 pub enum SNCastStarknetError {
@@ -115,7 +115,7 @@ pub enum SNCastStarknetError {
     #[error("Account balance is too small to cover transaction fee")]
     InsufficientAccountBalance,
     #[error("Contract {1} failed the validation = {0}")]
-    ValidationFailure(ByteArray,String),
+    ValidationFailure(ByteArray, String),
     #[error("Contract failed to compile in starknet")]
     CompilationFailed(ByteArray),
     #[error("Contract class size is too large")]
@@ -163,16 +163,15 @@ impl From<StarknetError> for SNCastStarknetError {
             StarknetError::ValidationFailure(err) => {
                 SNCastStarknetError::ValidationFailure(ByteArray::from(err.as_str()), String::new())
             }
-       	    StarknetError::CompilationFailed(msg) => {
-    	    	SNCastStarknetError::CompilationFailed(ByteArray::from(msg.as_str()))
-    	    }
-	    StarknetError::ContractClassSizeIsTooLarge => {
-            	SNCastStarknetError::ContractClassSizeIsTooLarge
-	    }
+            StarknetError::CompilationFailed(msg) => {
+                SNCastStarknetError::CompilationFailed(ByteArray::from(msg.as_str()))
+            }
+            StarknetError::ContractClassSizeIsTooLarge => {
+                SNCastStarknetError::ContractClassSizeIsTooLarge
+            }
             StarknetError::NonAccount => SNCastStarknetError::NonAccount,
             StarknetError::DuplicateTx => SNCastStarknetError::DuplicateTx,
             StarknetError::CompiledClassHashMismatch => {
-                        StarknetError::CompiledClassHashMismatch => {
                 SNCastStarknetError::CompiledClassHashMismatch
             }
             StarknetError::UnsupportedTxVersion => SNCastStarknetError::UnsupportedTxVersion,
@@ -187,4 +186,3 @@ impl From<StarknetError> for SNCastStarknetError {
         }
     }
 }
-
